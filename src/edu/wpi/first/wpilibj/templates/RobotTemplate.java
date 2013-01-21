@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -65,17 +66,17 @@ public class RobotTemplate extends SimpleRobot
    * RobotDrive.
    * TODO: extend robot drive to use 3 wheel holonomic
    */
-  RobotDrive rdDrive = new RobotDrive(9, 10);
+  RobotDrive rdDrive;
   
   /**
    * Joystick for the driver.
    */
-  Joystick joystickDriver = new Joystick(1);
+  Joystick joystickDriver;
   
   /**
    * Joystick for the operator.
    */
-  Joystick joystickOperator = new Joystick(2);
+  Joystick joystickOperator;
   
   /**
    * Velocity for motors A, B, C. Valid velocity range is between -1.00 and 1.00
@@ -91,22 +92,43 @@ public class RobotTemplate extends SimpleRobot
    *      | = -vX/2 + sqrt(3)/2 * vY
    * 
    */
-  double vA, vB, vC = 0; // velocity for motors A, B, C
+  double vA, vB, vC; // velocity for motors A, B, C
   
   /**
    * Motor controller objects for A, B, C drive motors.
    */
-  Victor motorA = new Victor(1, 1);
-  Victor motorB = new Victor(1, 2);
-  Victor motorC = new Victor(1, 3);
+  Victor motorA;
+  Victor motorB;
+  Victor motorC;
   
   /**
    * Motor controller objects for rest of robot:
    */
-  Victor indexer = new Victor(1, 4);
-  Victor shooterA = new Victor(1, 5);
-  Victor shooterB = new Victor(1 ,6);
-  Victor climber = new Victor(1,7);
+  Victor indexer;
+  Victor shooterA;
+  Victor shooterB;
+  Victor climber;
+  
+  
+  /**
+   * Robot initialization
+   */
+  public void robotInit()
+  {
+    rdDrive = new RobotDrive(9, 10);
+    joystickDriver = new Joystick(1);
+    joystickOperator = new Joystick(2);
+    vA = 0;
+    vB = 0;
+    vC = 0;
+    motorA = new Victor(1, 1);
+    motorB = new Victor(1, 2);
+    motorC = new Victor(1, 3);
+    indexer = new Victor(1, 4);
+    shooterA = new Victor(1, 5);
+    shooterB = new Victor(1 ,6);
+    climber = new Victor(1,7);
+  }
 
   
   //////////////////////////////////////////////////////////////////////////////
@@ -128,10 +150,33 @@ public class RobotTemplate extends SimpleRobot
    */
   public void operatorControl()
   {
+    double joyDrvX; // values to be sent to drive
+    double joyDrvY;
+    
     rdDrive.setSafetyEnabled(true);
 
     while (isOperatorControl() && isEnabled())
     {
+      // joystick deadzone for driver X
+      if(joystickDriver.getX() <= JOY_DRV_DEAD_X)
+      {
+        joyDrvX = 0;
+      }
+      else
+      {
+        joyDrvX = joystickDriver.getX();
+      }
+      
+      // joystick deadzone for driver Y
+      if(joystickDriver.getY() <= JOY_DRV_DEAD_Y)
+      {
+        joyDrvY = 0;
+      }
+      else
+      {
+        joyDrvY = joystickDriver.getY();
+      }
+      
       drive(joystickDriver.getX(), joystickDriver.getY());
 
       // DO NOT PLACE ANYTHING AFTER THIS LINE IN operatorControl() !!
@@ -158,6 +203,8 @@ public class RobotTemplate extends SimpleRobot
    */
   private void drive(double vX, double vY)
   {
+    SmartDashboard.putNumber("DRV JOY X", vX);
+    SmartDashboard.putNumber("DRV JOY Y", vY);
     // set MotorA
     vA = vX;
     vB = (-vX / 2) - (Math.sqrt(3) / 2 * vY);
@@ -169,8 +216,14 @@ public class RobotTemplate extends SimpleRobot
     vC = victorCorrection(vC);
 
     motorA.set(vA);
+    SmartDashboard.putNumber("Motor A", vA);
+    
     motorB.set(vB);
+    SmartDashboard.putNumber("Motor B", vB);
+    
     motorC.set(vC);
+    SmartDashboard.putNumber("Motor C", vC);
+    
   } // private void drive(double vX, double vY)
 
   /**
@@ -207,10 +260,8 @@ public class RobotTemplate extends SimpleRobot
     {
       return VIC_SPEED_MAX;
     }
-
-    // something went badly wrong
-    // TODO: throw an exception, or put a warning on the dashboard...
-    return VIC_SPEED_ZERO;
+    
+    return speed;
   } // private double victorCorrection(double speed)
   
 } // public class RobotTemplate extends SimpleRobot
