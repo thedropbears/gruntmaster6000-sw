@@ -152,33 +152,13 @@ public class RobotTemplate extends SimpleRobot
   {
     double joyDrvX; // values to be sent to drive
     double joyDrvY;
-    
+       
     rdDrive.setSafetyEnabled(true);
 
     while (isOperatorControl() && isEnabled())
     {
-      // joystick deadzone for driver X
-      if(joystickDriver.getX() <= JOY_DRV_DEAD_X)
-      {
-        joyDrvX = 0;
-      }
-      else
-      {
-        joyDrvX = joystickDriver.getX();
-      }
+      drive(joyDrvX(), joyDrvY()); // drive with 
       
-      // joystick deadzone for driver Y
-      if(joystickDriver.getY() <= JOY_DRV_DEAD_Y)
-      {
-        joyDrvY = 0;
-      }
-      else
-      {
-        joyDrvY = joystickDriver.getY();
-      }
-      
-      drive(joystickDriver.getX(), joystickDriver.getY());
-
       // DO NOT PLACE ANYTHING AFTER THIS LINE IN operatorControl() !!
       Timer.delay(TIMER_DELAY);
     } // while (isOperatorControl() && isEnabled())
@@ -263,5 +243,34 @@ public class RobotTemplate extends SimpleRobot
     
     return speed;
   } // private double victorCorrection(double speed)
+  
+  /**
+   * Driver Joystick Deadzone correction X axis
+   */
+  public double joyDrvX()
+  {
+    // joystick deadzone for driver X
+    if(joystickDriver.getX() <= JOY_DRV_DEAD_X)
+    {
+      return 0;
+    }
+
+    return joystickDriver.getX();
+  }
+  
+  
+  /**
+   * Driver Joystick Deadzone correction Y axis
+   */
+  public double joyDrvY()
+  {
+    // joystick deadzone for driver Y
+    if( joystickDriver.getY() <= JOY_DRV_DEAD_Y )
+    {
+      return 0;
+    }
+    
+    return joystickDriver.getY();
+  }
   
 } // public class RobotTemplate extends SimpleRobot
