@@ -24,42 +24,42 @@ public class RobotTemplate extends SimpleRobot
   /**
    * Driver joystick deadzone for x-axis. Default 0.05
    */
-  static float JOY_DRV_DEAD_X = (float) 0.05;
+  static double JOY_DRV_DEAD_X = (double) 0.05;
   
   /**
    * Driver joystick deadzone for y-axis. Default 0.05
    */
-  static float JOY_DRV_DEAD_Y = (float) 0.05;
+  static double JOY_DRV_DEAD_Y = (double) 0.05;
   
   /**
    * Operator joystick deadzone for x-axis. Default 0.05
    */
-  static float JOY_OPR_DEAD_X = (float) 0.05;
+  static double JOY_OPR_DEAD_X = (double) 0.05;
   
   /**
    * Operator joystick deadzone for y-axis. Default 0.05
    */
-  static float JOY_OPR_DEAD_Y = (float) 0.05;
+  static double JOY_OPR_DEAD_Y = (double) 0.05;
   
   /**
    * Delay for timer events. Default = 0.01 (100Hz)
    */
-  static float TIMER_DELAY = (float) 0.01; 
+  static double TIMER_DELAY = (double) 0.01; 
   
   /**
    * Maximum speed of VIC. Default = 1.00
    */
-  static float VIC_SPEED_MAX = (float) 1.00;
+  static double VIC_SPEED_MAX = (double) 1.00;
   
   /**
    * Minimum speed of VIC. Default = 0.05
    */
-  static float VIC_SPEED_MIN = (float) 0.05;
+  static double VIC_SPEED_MIN = (double) 0.05;
   
   /**
    * Stop speed of VIC. Default = 0
    */
-  static float VIC_SPEED_ZERO = (float) 0;
+  static double VIC_SPEED_ZERO = (double) 0;
   
   /**
    * RobotDrive.
@@ -182,7 +182,7 @@ public class RobotTemplate extends SimpleRobot
    * @param vN double speed
    * @return double corrected value
    */
-  private float victorCorrection(double speed)
+  private double victorCorrection(double speed)
   {
     // in deadzone > 0
     if ((speed > VIC_SPEED_ZERO) && (speed < VIC_SPEED_MIN))
@@ -211,6 +211,6 @@ public class RobotTemplate extends SimpleRobot
     // something went badly wrong
     // TODO: throw an exception, or put a warning on the dashboard...
     return VIC_SPEED_ZERO;
-  } // private float victorCorrection(double speed)
+  } // private double victorCorrection(double speed)
   
 } // public class RobotTemplate extends SimpleRobot
