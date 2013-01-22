@@ -150,9 +150,6 @@ public class RobotTemplate extends SimpleRobot
    */
   public void operatorControl()
   {
-    double joyDrvX; // values to be sent to drive
-    double joyDrvY;
-       
     rdDrive.setSafetyEnabled(true);
 
     while (isOperatorControl() && isEnabled())
