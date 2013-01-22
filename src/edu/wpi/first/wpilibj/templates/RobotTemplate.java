@@ -223,7 +223,7 @@ public class RobotTemplate extends SimpleRobot
     // in deadzone < 0
     if ((speed > -VIC_SPEED_MIN) && (speed < VIC_SPEED_ZERO))
     {
-      return -VIC_SPEED_ZERO;
+      return VIC_SPEED_ZERO;
     }
 
     // minimum boundary exceeded
@@ -247,7 +247,7 @@ public class RobotTemplate extends SimpleRobot
   public double joyDrvX()
   {
     // joystick deadzone for driver X
-    if(joystickDriver.getX() <= JOY_DRV_DEAD_X)
+    if( (Math.abs(joystickDriver.getX()) - JOY_DRV_DEAD_X ) < 0 )
     {
       return 0;
     }
@@ -262,11 +262,11 @@ public class RobotTemplate extends SimpleRobot
   public double joyDrvY()
   {
     // joystick deadzone for driver Y
-    if( joystickDriver.getY() <= JOY_DRV_DEAD_Y )
+    if( (Math.abs(joystickDriver.getY()) - JOY_DRV_DEAD_Y ) < 0 )
     {
       return 0;
     }
-    
+
     return joystickDriver.getY();
   }
   
