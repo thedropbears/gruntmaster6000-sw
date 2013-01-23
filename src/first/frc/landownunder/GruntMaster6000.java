@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-package edu.wpi.first.wpilibj.templates;
+package first.frc.landownunder;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
@@ -18,25 +18,25 @@ import edu.wpi.first.wpilibj.Victor;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class RobotTemplate extends SimpleRobot
+public class GruntMaster6000 extends SimpleRobot
 {
   /**
-   * Driver joystick deadzone for x-axis. Default 0.05
+   * Driver joystick dead zone for x-axis. Default 0.05
    */
   static float JOY_DRV_DEAD_X = (float) 0.05;
   
   /**
-   * Driver joystick deadzone for y-axis. Default 0.05
+   * Driver joystick dead zone for y-axis. Default 0.05
    */
   static float JOY_DRV_DEAD_Y = (float) 0.05;
   
   /**
-   * Operator joystick deadzone for x-axis. Default 0.05
+   * Operator joystick dead zone for x-axis. Default 0.05
    */
   static float JOY_OPR_DEAD_X = (float) 0.05;
   
   /**
-   * Operator joystick deadzone for y-axis. Default 0.05
+   * Operator joystick dead zone for y-axis. Default 0.05
    */
   static float JOY_OPR_DEAD_Y = (float) 0.05;
   
