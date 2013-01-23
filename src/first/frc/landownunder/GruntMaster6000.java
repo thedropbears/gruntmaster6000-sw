@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,27 +24,27 @@ public class GruntMaster6000 extends SimpleRobot
   /**
    * Driver joystick dead zone for x-axis. Default 0.05
    */
-  static float JOY_DRV_DEAD_X = (float) 0.05;
+  static double JOY_DRV_DEAD_X = (double) 0.05;
   
   /**
    * Driver joystick dead zone for y-axis. Default 0.05
    */
-  static float JOY_DRV_DEAD_Y = (float) 0.05;
+  static double JOY_DRV_DEAD_Y = (double) 0.05;
   
   /**
    * Operator joystick dead zone for x-axis. Default 0.05
    */
-  static float JOY_OPR_DEAD_X = (float) 0.05;
+  static double JOY_OPR_DEAD_X = (double) 0.05;
   
   /**
    * Operator joystick dead zone for y-axis. Default 0.05
    */
-  static float JOY_OPR_DEAD_Y = (float) 0.05;
+  static double JOY_OPR_DEAD_Y = (double) 0.05;
   
   /**
    * Delay for timer events. Default = 0.01 (100Hz)
    */
-  static float TIMER_DELAY = (float) 0.01; 
+  static double TIMER_DELAY = (double) 0.01; 
   
   /**
    * RobotDrive.
@@ -75,22 +76,43 @@ public class GruntMaster6000 extends SimpleRobot
    *      | = -vX/2 + sqrt(3)/2 * vY
    * 
    */
-  double vA, vB, vC = 0; // velocity for motors A, B, C
+  double vA, vB, vC; // velocity for motors A, B, C
   
   /**
    * Motor controller objects for A, B, C drive motors.
    */
-  Victor motorA  = new Victor(1, 1);
-  Victor motorB  = new Victor(1, 2);
-  Victor motorC  = new Victor(1, 3);
+  Victor motorA;
+  Victor motorB;
+  Victor motorC;
   
   /**
    * Motor controller objects for rest of robot:
    */
-  Victor indexer  = new Victor(1, 4);
-  Victor shooterA = new Victor(1, 5);
-  Victor shooterB = new Victor(1 ,6);
-  Victor climber  = new Victor(1,7);
+  Victor indexer;
+  Victor shooterA;
+  Victor shooterB;
+  Victor climber;
+  
+  
+  /**
+   * Robot initialization
+   */
+  public void robotInit()
+  {
+    rdDrive = new RobotDrive(9, 10);
+    joystickDriver = new Joystick(1);
+    joystickOperator = new Joystick(2);
+    vA = 0;
+    vB = 0;
+    vC = 0;
+    motorA = new Victor(1, 1);
+    motorB = new Victor(1, 2);
+    motorC = new Victor(1, 3);
+    indexer = new Victor(1, 4);
+    shooterA = new Victor(1, 5);
+    shooterB = new Victor(1 ,6);
+    climber = new Victor(1,7);
+  }
 
   
   //////////////////////////////////////////////////////////////////////////////
