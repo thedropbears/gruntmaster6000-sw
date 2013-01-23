@@ -99,9 +99,9 @@ public class GruntMaster6000 extends SimpleRobot
    */
   public void robotInit()
   {
-    rdDrive = new RobotDrive(9, 10);
-    joystickDriver = new Joystick(1);
-    joystickOperator = new Joystick(2);
+    kd = new KiwiDrive(1,2,3);
+    joyDrv = new Joystick(1);
+    joyOpr = new Joystick(2);
     vA = 0;
     vB = 0;
     vC = 0;
