@@ -7,7 +7,6 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
@@ -47,35 +46,20 @@ public class RobotTemplate extends SimpleRobot
   static float TIMER_DELAY = (float) 0.01; 
   
   /**
-   * Maximum speed of VIC. Default = 1.00
-   */
-  static float VIC_SPEED_MAX = (float) 1.00;
-  
-  /**
-   * Minimum speed of VIC. Default = 0.05
-   */
-  static float VIC_SPEED_MIN = (float) 0.05;
-  
-  /**
-   * Stop speed of VIC. Default = 0
-   */
-  static float VIC_SPEED_ZERO = (float) 0;
-  
-  /**
    * RobotDrive.
    * TODO: extend robot drive to use 3 wheel holonomic
    */
-  RobotDrive rdDrive = new RobotDrive(9, 10);
+  KiwiDrive kd = new KiwiDrive(1,2,3);
   
   /**
    * Joystick for the driver.
    */
-  Joystick joystickDriver = new Joystick(1);
+  Joystick joyDrv = new Joystick(1);
   
   /**
    * Joystick for the operator.
    */
-  Joystick joystickOperator = new Joystick(2);
+  Joystick joyOpr = new Joystick(2);
   
   /**
    * Velocity for motors A, B, C. Valid velocity range is between -1.00 and 1.00
@@ -96,17 +80,17 @@ public class RobotTemplate extends SimpleRobot
   /**
    * Motor controller objects for A, B, C drive motors.
    */
-  Victor motorA = new Victor(1, 1);
-  Victor motorB = new Victor(1, 2);
-  Victor motorC = new Victor(1, 3);
+  Victor motorA  = new Victor(1, 1);
+  Victor motorB  = new Victor(1, 2);
+  Victor motorC  = new Victor(1, 3);
   
   /**
    * Motor controller objects for rest of robot:
    */
-  Victor indexer = new Victor(1, 4);
+  Victor indexer  = new Victor(1, 4);
   Victor shooterA = new Victor(1, 5);
   Victor shooterB = new Victor(1 ,6);
-  Victor climber = new Victor(1,7);
+  Victor climber  = new Victor(1,7);
 
   
   //////////////////////////////////////////////////////////////////////////////
@@ -128,11 +112,12 @@ public class RobotTemplate extends SimpleRobot
    */
   public void operatorControl()
   {
-    rdDrive.setSafetyEnabled(true);
+    kd.setSafetyEnabled(true);
 
     while (isOperatorControl() && isEnabled())
     {
-      drive(joystickDriver.getX(), joystickDriver.getY());
+      // use KiwiDrive class for driving
+      kd.drive(joyDrv.getX(), joyDrv.getY(), 0, joyDrv.getThrottle() );
 
       // DO NOT PLACE ANYTHING AFTER THIS LINE IN operatorControl() !!
       Timer.delay(TIMER_DELAY);
@@ -144,73 +129,6 @@ public class RobotTemplate extends SimpleRobot
    */
   public void test()
   {
+    // TODO: implement me
   } // public void test()
-
-  /**
-   * control motor drive train concept based on Vector_Drive from CMU
-   * implementation at http://www.cs.cmu.edu/~pprk/Download/robot.cpp and
-   * http://www.rjmcnamara.com/VIC_SPEED_MIN12/06/holonomic-platforms-robotc/
-   *
-   * @param vX x position of joystick
-   * @param vY y pos of joystick
-   * @author Adam Carmichael <carneeki@carneeki.net>
-   * @since VIC_SPEED_MIN13-01-19 12:30AEDT
-   */
-  private void drive(double vX, double vY)
-  {
-    // set MotorA
-    vA = vX;
-    vB = (-vX / 2) - (Math.sqrt(3) / 2 * vY);
-    vC = (-vX / 2) + (Math.sqrt(3) / 2 * vY);
-
-    // do deadzone corrections
-    vA = victorCorrection(vA);
-    vB = victorCorrection(vB);
-    vC = victorCorrection(vC);
-
-    motorA.set(vA);
-    motorB.set(vB);
-    motorC.set(vC);
-  } // private void drive(double vX, double vY)
-
-  /**
-   * correct the values sent to VIC such that deadzones and speed boundaries are
-   * respected
-   *
-   * @author Adam Carmichael <carneeki@carneeki.net>
-   * @since 2013-01-19 18:35 AEDT
-   * @param vN double speed
-   * @return double corrected value
-   */
-  private float victorCorrection(double speed)
-  {
-    // in deadzone > 0
-    if ((speed > VIC_SPEED_ZERO) && (speed < VIC_SPEED_MIN))
-    {
-      return VIC_SPEED_ZERO;
-    }
-
-    // in deadzone < 0
-    if ((speed > -VIC_SPEED_MIN) && (speed < VIC_SPEED_ZERO))
-    {
-      return -VIC_SPEED_ZERO;
-    }
-
-    // minimum boundary exceeded
-    if (speed < -VIC_SPEED_MAX)
-    {
-      return -VIC_SPEED_MAX;
-    }
-
-    // maximum boundary exceeded
-    if (speed > VIC_SPEED_MAX)
-    {
-      return VIC_SPEED_MAX;
-    }
-
-    // something went badly wrong
-    // TODO: throw an exception, or put a warning on the dashboard...
-    return VIC_SPEED_ZERO;
-  } // private float victorCorrection(double speed)
-  
 } // public class RobotTemplate extends SimpleRobot
