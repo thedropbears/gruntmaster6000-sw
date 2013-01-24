@@ -99,9 +99,9 @@ public class GruntMaster6000 extends SimpleRobot
    */
   public void robotInit()
   {
-    rdDrive = new RobotDrive(9, 10);
-    joystickDriver = new Joystick(1);
-    joystickOperator = new Joystick(2);
+    kd = new KiwiDrive(1,2,3);
+    joyDrv = new Joystick(1);
+    joyOpr = new Joystick(2);
     vA = 0;
     vB = 0;
     vC = 0;
@@ -139,7 +139,19 @@ public class GruntMaster6000 extends SimpleRobot
     while (isOperatorControl() && isEnabled())
     {
       // use KiwiDrive class for driving
+      SmartDashboard.putNumber("Drv X", joyDrv.getX());
+      SmartDashboard.putNumber("Drv Y", joyDrv.getY());
+      SmartDashboard.putNumber("Drv Throttle", joyDrv.getThrottle());
+      
+      SmartDashboard.putNumber("Opr X", joyOpr.getX());
+      SmartDashboard.putNumber("Opr Y", joyOpr.getY());
+      SmartDashboard.putNumber("Opr Throttle", joyOpr.getThrottle());
+      
+      
       kd.drive(joyDrv.getX(), joyDrv.getY(), 0, joyDrv.getThrottle() );
+      
+      shooterA.set(joyOpr.getThrottle());
+      shooterB.set(joyOpr.getThrottle());
 
       // DO NOT PLACE ANYTHING AFTER THIS LINE IN operatorControl() !!
       Timer.delay(TIMER_DELAY);
