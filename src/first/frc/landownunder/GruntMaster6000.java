@@ -105,9 +105,6 @@ public class GruntMaster6000 extends SimpleRobot
     vA = 0;
     vB = 0;
     vC = 0;
-    motorA = new Victor(1, 1);
-    motorB = new Victor(1, 2);
-    motorC = new Victor(1, 3);
     indexer = new Victor(1, 4);
     shooterA = new Victor(1, 5);
     shooterB = new Victor(1 ,6);
@@ -150,6 +147,8 @@ public class GruntMaster6000 extends SimpleRobot
       
       kd.drive(joyDrv.getX(), joyDrv.getY(), 0, joyDrv.getThrottle() );
       
+      // TODO: change me to start / stop for real code. getThrottle() just for
+      // bench testing.
       shooterA.set(joyOpr.getThrottle());
       shooterB.set(joyOpr.getThrottle());
 
