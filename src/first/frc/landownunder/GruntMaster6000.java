@@ -50,7 +50,7 @@ public class GruntMaster6000 extends SimpleRobot
    * RobotDrive.
    * TODO: extend robot drive to use 3 wheel holonomic
    */
-  KiwiDrive kd = new KiwiDrive(1,2,3);
+  KiwiDrive kd;
   
   /**
    * Joystick for the driver.
@@ -81,9 +81,11 @@ public class GruntMaster6000 extends SimpleRobot
   /**
    * Motor controller objects for A, B, C drive motors.
    */
+  /*
   Victor motorA;
   Victor motorB;
   Victor motorC;
+  */
   
   /**
    * Motor controller objects for rest of robot:
@@ -100,15 +102,13 @@ public class GruntMaster6000 extends SimpleRobot
   public void robotInit()
   {
     kd = new KiwiDrive(1,2,3);
-    joyDrv = new Joystick(1);
-    joyOpr = new Joystick(2);
     vA = 0;
     vB = 0;
     vC = 0;
-    indexer = new Victor(1, 4);
+    indexer  = new Victor(1, 4);
     shooterA = new Victor(1, 5);
-    shooterB = new Victor(1 ,6);
-    climber = new Victor(1,7);
+    shooterB = new Victor(1, 6);
+    climber  = new Victor(1, 7);
   }
 
   
@@ -132,25 +132,30 @@ public class GruntMaster6000 extends SimpleRobot
   public void operatorControl()
   {
     kd.setSafetyEnabled(true);
+    
+    double drvThrottle;
+    double oprThrottle;
 
     while (isOperatorControl() && isEnabled())
     {
+      drvThrottle = ( (1+joyDrv.getRawAxis(3))/2 );
+      oprThrottle = ( (1+joyOpr.getRawAxis(3))/2 );
       // use KiwiDrive class for driving
       SmartDashboard.putNumber("Drv X", joyDrv.getX());
       SmartDashboard.putNumber("Drv Y", joyDrv.getY());
-      SmartDashboard.putNumber("Drv Throttle", joyDrv.getThrottle());
+      SmartDashboard.putNumber("Drv Throttle", drvThrottle);
       
       SmartDashboard.putNumber("Opr X", joyOpr.getX());
       SmartDashboard.putNumber("Opr Y", joyOpr.getY());
-      SmartDashboard.putNumber("Opr Throttle", joyOpr.getThrottle());
+      SmartDashboard.putNumber("Opr Throttle", oprThrottle);
       
       
-      kd.drive(joyDrv.getX(), joyDrv.getY(), 0, joyDrv.getThrottle() );
+      kd.drive(joyDrv.getX(), joyDrv.getY(), 0, drvThrottle );
       
       // TODO: change me to start / stop for real code. getThrottle() just for
       // bench testing.
-      shooterA.set(joyOpr.getThrottle());
-      shooterB.set(joyOpr.getThrottle());
+      shooterA.set(-oprThrottle);
+      shooterB.set(-oprThrottle);
 
       // DO NOT PLACE ANYTHING AFTER THIS LINE IN operatorControl() !!
       Timer.delay(TIMER_DELAY);
