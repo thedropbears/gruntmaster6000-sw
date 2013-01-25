@@ -44,7 +44,7 @@ public class GruntMaster6000 extends SimpleRobot
   /**
    * Delay for timer events. Default = 0.01 (100Hz)
    */
-  static double TIMER_DELAY = (double) 0.01; 
+  static double TIMER_DELAY = (double) 0.01;
   
   /**
    * RobotDrive.
@@ -55,37 +55,12 @@ public class GruntMaster6000 extends SimpleRobot
   /**
    * Joystick for the driver.
    */
-  Joystick joyDrv = new Joystick(1);
+  Joystick joyDrv;
   
   /**
    * Joystick for the operator.
    */
-  Joystick joyOpr = new Joystick(2);
-  
-  /**
-   * Velocity for motors A, B, C. Valid velocity range is between -1.00 and 1.00
-   * 
-   * Motor positions: 
-   *          A
-   *          | = vX
-   *          .
-   * 
-   *      C       B
-   *      |       | = -vX/2 - sqrt(3)/2 * vY
-   *      |
-   *      | = -vX/2 + sqrt(3)/2 * vY
-   * 
-   */
-  double vA, vB, vC; // velocity for motors A, B, C
-  
-  /**
-   * Motor controller objects for A, B, C drive motors.
-   */
-  /*
-  Victor motorA;
-  Victor motorB;
-  Victor motorC;
-  */
+  Joystick joyOpr;
   
   /**
    * Motor controller objects for rest of robot:
@@ -101,10 +76,10 @@ public class GruntMaster6000 extends SimpleRobot
    */
   public void robotInit()
   {
+    joyDrv = new Joystick(1);
+    joyOpr = new Joystick(2);
+    
     kd = new KiwiDrive(1,2,3);
-    vA = 0;
-    vB = 0;
-    vC = 0;
     indexer  = new Victor(1, 4);
     shooterA = new Victor(1, 5);
     shooterB = new Victor(1, 6);
