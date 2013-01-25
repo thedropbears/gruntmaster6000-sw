@@ -114,7 +114,7 @@ public class GruntMaster6000 extends SimpleRobot
     while (isOperatorControl() && isEnabled())
     {
       drvThrottle = ( (1+joyDrv.getRawAxis(3))/2 );
-      //oprThrottle = ( (1+joyOpr.getRawAxis(3))/2 );
+      // oprThrottle = ( (1+joyOpr.getRawAxis(3))/2 );
       SmartDashboard.putNumber("Drv X", joyDrv.getX());
       SmartDashboard.putNumber("Drv Y", joyDrv.getY());
       SmartDashboard.putNumber("Drv Throttle", drvThrottle);
