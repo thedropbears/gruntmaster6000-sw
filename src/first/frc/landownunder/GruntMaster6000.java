@@ -114,17 +114,18 @@ public class GruntMaster6000 extends SimpleRobot
     while (isOperatorControl() && isEnabled())
     {
       drvThrottle = ( (1+joyDrv.getRawAxis(3))/2 );
-      oprThrottle = ( (1+joyOpr.getRawAxis(3))/2 );
-      // use KiwiDrive class for driving
+      //oprThrottle = ( (1+joyOpr.getRawAxis(3))/2 );
       SmartDashboard.putNumber("Drv X", joyDrv.getX());
       SmartDashboard.putNumber("Drv Y", joyDrv.getY());
       SmartDashboard.putNumber("Drv Throttle", drvThrottle);
       
       SmartDashboard.putNumber("Opr X", joyOpr.getX());
       SmartDashboard.putNumber("Opr Y", joyOpr.getY());
-      SmartDashboard.putNumber("Opr Throttle", oprThrottle);
+      //SmartDashboard.putNumber("Opr Throttle", oprThrottle);
       
+      oprThrottle = SmartDashboard.getNumber("Opr Throttle", 0.00);
       
+      // use KiwiDrive class for driving
       kd.drive(joyDrv.getX(), joyDrv.getY(), 0, drvThrottle );
       
       // TODO: change me to start / stop for real code. getThrottle() just for
@@ -136,7 +137,7 @@ public class GruntMaster6000 extends SimpleRobot
       Timer.delay(TIMER_DELAY);
     } // while (isOperatorControl() && isEnabled())
   } // public void operatorControl()
-
+  
   /**
    * This function is called once each time the robot enters test mode.
    */
