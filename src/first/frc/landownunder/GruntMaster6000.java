@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -69,7 +70,15 @@ public class GruntMaster6000 extends SimpleRobot
   Victor shooterA;
   Victor shooterB;
   Victor climber;
+  Victor firePinA;
+  Victor firePinB;
   
+  
+  /**
+   * limit switches
+   */
+  boolean limitSwitchA;
+  boolean limitSwitchB;
   
   /**
    * Robot initialization
@@ -84,6 +93,9 @@ public class GruntMaster6000 extends SimpleRobot
     shooterA = new Victor(1, 5);
     shooterB = new Victor(1, 6);
     climber  = new Victor(1, 7);
+    
+    limitSwitchA = new DigitalInput(7).get();
+    limitSwitchB = new DigitalInput(8).get();
   }
 
   
