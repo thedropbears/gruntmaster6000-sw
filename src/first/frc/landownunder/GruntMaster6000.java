@@ -70,6 +70,10 @@ public class GruntMaster6000 extends SimpleRobot
   Victor shooterB;
   Victor firePin;
   
+  /**
+   * Firing Pin
+   */
+  firePin pin;
   
   /**
    * limit switches
@@ -141,6 +145,16 @@ public class GruntMaster6000 extends SimpleRobot
       shooterA.set(-oprThrottle);
       shooterB.set(-oprThrottle);
 
+      // fireing pin
+      if (joyOpr.getRawButton(8))
+      {
+        pin.fire();
+      }
+      
+      if (joyOpr.getRawButton(7))
+      {
+        pin.reset();
+      }
       // DO NOT PLACE ANYTHING AFTER THIS LINE IN operatorControl() !!
       Timer.delay(TIMER_DELAY);
     } // while (isOperatorControl() && isEnabled())
