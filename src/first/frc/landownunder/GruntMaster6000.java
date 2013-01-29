@@ -6,12 +6,12 @@
 /*----------------------------------------------------------------------------*/
 package first.frc.landownunder;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -66,19 +66,16 @@ public class GruntMaster6000 extends SimpleRobot
   /**
    * Motor controller objects for rest of robot:
    */
-  Victor indexer;
   Victor shooterA;
   Victor shooterB;
-  Victor climber;
-  Victor firePinA;
-  Victor firePinB;
+  Victor firePin;
   
   
   /**
    * limit switches
    */
-  boolean limitSwitchA;
-  boolean limitSwitchB;
+  DigitalInput firePinMax;
+  DigitalInput firePinMin;
   
   /**
    * Robot initialization
@@ -89,13 +86,12 @@ public class GruntMaster6000 extends SimpleRobot
     joyOpr = new Joystick(2);
     
     kd = new KiwiDrive(1,2,3);
-    indexer  = new Victor(1, 4);
+    firePin  = new Victor(1, 4);
     shooterA = new Victor(1, 5);
     shooterB = new Victor(1, 6);
-    climber  = new Victor(1, 7);
     
-    limitSwitchA = new DigitalInput(7).get();
-    limitSwitchB = new DigitalInput(8).get();
+    firePinMax = new DigitalInput(7);
+    firePinMin = new DigitalInput(8);
   }
 
   
@@ -144,6 +140,9 @@ public class GruntMaster6000 extends SimpleRobot
       // bench testing.
       shooterA.set(-oprThrottle);
       shooterB.set(-oprThrottle);
+      
+        
+      }
 
       // DO NOT PLACE ANYTHING AFTER THIS LINE IN operatorControl() !!
       Timer.delay(TIMER_DELAY);
