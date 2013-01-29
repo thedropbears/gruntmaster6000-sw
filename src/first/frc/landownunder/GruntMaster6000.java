@@ -140,9 +140,6 @@ public class GruntMaster6000 extends SimpleRobot
       // bench testing.
       shooterA.set(-oprThrottle);
       shooterB.set(-oprThrottle);
-      
-        
-      }
 
       // DO NOT PLACE ANYTHING AFTER THIS LINE IN operatorControl() !!
       Timer.delay(TIMER_DELAY);
