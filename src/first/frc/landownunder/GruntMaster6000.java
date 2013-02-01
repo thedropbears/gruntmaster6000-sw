@@ -94,8 +94,10 @@ public class GruntMaster6000 extends SimpleRobot
     shooterA = new Victor(1, 5);
     shooterB = new Victor(1, 6);
     
-    firePinMax = new DigitalInput(7);
-    firePinMin = new DigitalInput(8);
+    firePinMax = new DigitalInput(1);
+    firePinMin = new DigitalInput(2);
+    
+    pin = new firePin(firePin, firePinMax, firePinMin);
   }
 
   
