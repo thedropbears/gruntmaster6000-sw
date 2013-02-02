@@ -6,11 +6,11 @@ package first.frc.landownunder;
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.MotorSafety;
 import edu.wpi.first.wpilibj.MotorSafetyHelper;
 import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.parsing.IUtility;
 
 /**
@@ -97,16 +97,16 @@ public class KiwiDrive implements MotorSafety, IUtility
   {
     m_sensitivity = kDefaultSensitivity;
     m_maxOutput = kDefaultMaxOutput;
-    m_AMotor = new Jaguar(aMotorChannel);
-    m_BMotor = new Jaguar(bMotorChannel);
-    m_CMotor = new Jaguar(cMotorChannel);
+    m_AMotor = new Victor(1,aMotorChannel);
+    m_BMotor = new Victor(1,bMotorChannel);
+    m_CMotor = new Victor(1,cMotorChannel);
     for (int i = 0; i < kMaxNumberOfMotors; i++)
     {
       m_invertedMotors[i] = 1;
     }
     m_allocatedSpeedControllers = true;
     setupMotorSafety();
-    drive(0,0,0,0);
+    //drive(0,0,0,0);
   }
 
   /**

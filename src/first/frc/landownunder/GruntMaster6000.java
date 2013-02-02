@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 package first.frc.landownunder;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -44,74 +45,57 @@ public class GruntMaster6000 extends SimpleRobot
   /**
    * Delay for timer events. Default = 0.01 (100Hz)
    */
-  static double TIMER_DELAY = (double) 0.01; 
+  static double TIMER_DELAY = (double) 0.01;
   
   /**
    * RobotDrive.
    * TODO: extend robot drive to use 3 wheel holonomic
    */
-  KiwiDrive kd = new KiwiDrive(1,2,3);
+  KiwiDrive kd;
   
   /**
    * Joystick for the driver.
    */
-  Joystick joyDrv = new Joystick(1);
+  Joystick joyDrv;
   
   /**
    * Joystick for the operator.
    */
-  Joystick joyOpr = new Joystick(2);
-  
-  /**
-   * Velocity for motors A, B, C. Valid velocity range is between -1.00 and 1.00
-   * 
-   * Motor positions: 
-   *          A
-   *          | = vX
-   *          .
-   * 
-   *      C       B
-   *      |       | = -vX/2 - sqrt(3)/2 * vY
-   *      |
-   *      | = -vX/2 + sqrt(3)/2 * vY
-   * 
-   */
-  double vA, vB, vC; // velocity for motors A, B, C
-  
-  /**
-   * Motor controller objects for A, B, C drive motors.
-   */
-  Victor motorA;
-  Victor motorB;
-  Victor motorC;
+  Joystick joyOpr;
   
   /**
    * Motor controller objects for rest of robot:
    */
-  Victor indexer;
   Victor shooterA;
   Victor shooterB;
-  Victor climber;
+  Victor firePin;
   
+  /**
+   * Firing Pin
+   */
+  firePin pin;
+  
+  /**
+   * limit switches
+   */
+  DigitalInput firePinMax;
+  DigitalInput firePinMin;
   
   /**
    * Robot initialization
    */
   public void robotInit()
   {
-    kd = new KiwiDrive(1,2,3);
     joyDrv = new Joystick(1);
     joyOpr = new Joystick(2);
-    vA = 0;
-    vB = 0;
-    vC = 0;
-    motorA = new Victor(1, 1);
-    motorB = new Victor(1, 2);
-    motorC = new Victor(1, 3);
-    indexer = new Victor(1, 4);
+    
+    kd = new KiwiDrive(1,2,3);
+    firePin  = new Victor(1, 4);
     shooterA = new Victor(1, 5);
-    shooterB = new Victor(1 ,6);
-    climber = new Victor(1,7);
+    shooterB = new Victor(1, 6);
+    
+    firePinMax = new DigitalInput(7);
+    firePinMin = new DigitalInput(8);
   }
 
   
@@ -135,17 +119,47 @@ public class GruntMaster6000 extends SimpleRobot
   public void operatorControl()
   {
     kd.setSafetyEnabled(true);
+    
+    double drvThrottle;
+    double oprThrottle;
 
     while (isOperatorControl() && isEnabled())
     {
+      drvThrottle = ( (1+joyDrv.getRawAxis(3))/2 );
+      // oprThrottle = ( (1+joyOpr.getRawAxis(3))/2 );
+      SmartDashboard.putNumber("Drv X", joyDrv.getX());
+      SmartDashboard.putNumber("Drv Y", joyDrv.getY());
+      SmartDashboard.putNumber("Drv Throttle", drvThrottle);
+      
+      SmartDashboard.putNumber("Opr X", joyOpr.getX());
+      SmartDashboard.putNumber("Opr Y", joyOpr.getY());
+      //SmartDashboard.putNumber("Opr Throttle", oprThrottle);
+      
+      oprThrottle = SmartDashboard.getNumber("Opr Throttle", 0.00);
+      
       // use KiwiDrive class for driving
-      kd.drive(joyDrv.getX(), joyDrv.getY(), 0, joyDrv.getThrottle() );
+      kd.drive(joyDrv.getX(), joyDrv.getY(), 0, drvThrottle );
+      
+      // TODO: change me to start / stop for real code. getThrottle() just for
+      // bench testing.
+      shooterA.set(-oprThrottle);
+      shooterB.set(-oprThrottle);
 
+      // fireing pin
+      if (joyOpr.getRawButton(8))
+      {
+        pin.fire();
+      }
+      
+      if (joyOpr.getRawButton(7))
+      {
+        pin.reset();
+      }
       // DO NOT PLACE ANYTHING AFTER THIS LINE IN operatorControl() !!
       Timer.delay(TIMER_DELAY);
     } // while (isOperatorControl() && isEnabled())
   } // public void operatorControl()
-
+  
   /**
    * This function is called once each time the robot enters test mode.
    */
