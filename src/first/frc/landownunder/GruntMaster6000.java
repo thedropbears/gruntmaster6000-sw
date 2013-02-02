@@ -9,6 +9,7 @@ package first.frc.landownunder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import first.frc.landownunder.commands.AutonomousCommandGroup;
 import first.frc.landownunder.commands.CommandBase;
 
 /**
@@ -27,6 +28,8 @@ public class GruntMaster6000 extends IterativeRobot
    */
   public void robotInit()
   {
+    autonomousCommand = new AutonomousCommandGroup();
+    
     CommandBase.init();
   }
   
@@ -35,13 +38,13 @@ public class GruntMaster6000 extends IterativeRobot
    */
   public void autonomousInit()
   {
-    // schedule the autonomous command
+    autonomousCommand.start();
   }
   
   /**
    * This function is called periodically during autonomous.
    */
-  public void autonomousPeriod()
+  public void autonomousPeriodic()
   {
     Scheduler.getInstance().run();
   }
