@@ -6,167 +6,67 @@
 /*----------------------------------------------------------------------------*/
 package first.frc.landownunder;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SimpleRobot;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import first.frc.landownunder.commands.AutonomousCommandGroup;
+import first.frc.landownunder.commands.CommandBase;
 
 /**
  * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the SimpleRobot
+ * functions corresponding to each mode, as described in the IterativeRobot
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class GruntMaster6000 extends SimpleRobot
-{
-  /**
-   * Driver joystick dead zone for x-axis. Default 0.05
-   */
-  static double JOY_DRV_DEAD_X = (double) 0.05;
-  
-  /**
-   * Driver joystick dead zone for y-axis. Default 0.05
-   */
-  static double JOY_DRV_DEAD_Y = (double) 0.05;
-  
-  /**
-   * Operator joystick dead zone for x-axis. Default 0.05
-   */
-  static double JOY_OPR_DEAD_X = (double) 0.05;
-  
-  /**
-   * Operator joystick dead zone for y-axis. Default 0.05
-   */
-  static double JOY_OPR_DEAD_Y = (double) 0.05;
-  
-  /**
-   * Delay for timer events. Default = 0.01 (100Hz)
-   */
-  static double TIMER_DELAY = (double) 0.01;
-  
-  /**
-   * RobotDrive.
-   * TODO: extend robot drive to use 3 wheel holonomic
-   */
-  KiwiDrive kd;
-  
-  /**
-   * Joystick for the driver.
-   */
-  Joystick joyDrv;
-  
-  /**
-   * Joystick for the operator.
-   */
-  Joystick joyOpr;
-  
-  /**
-   * Motor controller objects for rest of robot:
-   */
-  Victor shooterA;
-  Victor shooterB;
-  Victor firePin;
-  
-  /**
-   * Firing Pin
-   */
-  firePin pin;
-  
-  /**
-   * limit switches
-   */
-  DigitalInput firePinMax;
-  DigitalInput firePinMin;
+public class GruntMaster6000 extends IterativeRobot
+{  
+  Command autonomousCommand = null;
   
   /**
    * Robot initialization
    */
   public void robotInit()
   {
-    joyDrv = new Joystick(1);
-    joyOpr = new Joystick(2);
+    autonomousCommand = new AutonomousCommandGroup();
     
-    kd = new KiwiDrive(1,2,3);
-    firePin  = new Victor(1, 4);
-    shooterA = new Victor(1, 5);
-    shooterB = new Victor(1, 6);
-    
-    firePinMax = new DigitalInput(1);
-    firePinMin = new DigitalInput(2);
-    
-    pin = new firePin(firePin, firePinMax, firePinMin);
+    CommandBase.init();
   }
-
-  
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  // Place methods here
-  //  
-  //////////////////////////////////////////////////////////////////////////////
   
   /**
-   * This function is called once each time the robot enters autonomous mode.
+   * This function is called once each time robot enter autonomous.
    */
-  public void autonomous()
+  public void autonomousInit()
   {
-    // TODO: implement me
+    autonomousCommand.start();
   }
-
+  
+  /**
+   * This function is called periodically during autonomous.
+   */
+  public void autonomousPeriodic()
+  {
+    Scheduler.getInstance().run();
+  }
+  
   /**
    * This function is called once each time the robot enters operator control.
    */
-  public void operatorControl()
+  public void teleopInit()
   {
-    kd.setSafetyEnabled(true);
-    
-    double drvThrottle;
-    double oprThrottle;
-
-    while (isOperatorControl() && isEnabled())
+    // Ensure autonomous command is cancelled
+    if(autonomousCommand != null)
     {
-      drvThrottle = ( (1+joyDrv.getRawAxis(3))/2 );
-      // oprThrottle = ( (1+joyOpr.getRawAxis(3))/2 );
-      SmartDashboard.putNumber("Drv X", joyDrv.getX());
-      SmartDashboard.putNumber("Drv Y", joyDrv.getY());
-      SmartDashboard.putNumber("Drv Throttle", drvThrottle);
-      
-      SmartDashboard.putNumber("Opr X", joyOpr.getX());
-      SmartDashboard.putNumber("Opr Y", joyOpr.getY());
-      //SmartDashboard.putNumber("Opr Throttle", oprThrottle);
-      
-      oprThrottle = SmartDashboard.getNumber("Opr Throttle", 0.00);
-      
-      // use KiwiDrive class for driving
-      kd.drive(joyDrv.getX(), joyDrv.getY(), 0, drvThrottle );
-      
-      // TODO: change me to start / stop for real code. getThrottle() just for
-      // bench testing.
-      shooterA.set(-oprThrottle);
-      shooterB.set(-oprThrottle);
-
-      // fireing pin
-      if (joyOpr.getRawButton(8))
-      {
-        pin.fire();
-      }
-      
-      if (joyOpr.getRawButton(7))
-      {
-        pin.reset();
-      }
-      // DO NOT PLACE ANYTHING AFTER THIS LINE IN operatorControl() !!
-      Timer.delay(TIMER_DELAY);
-    } // while (isOperatorControl() && isEnabled())
-  } // public void operatorControl()
+      autonomousCommand.cancel();
+    }
+  }
   
   /**
-   * This function is called once each time the robot enters test mode.
+   * This function is called periodically during operator control.
    */
-  public void test()
+  public void teleopPeriodic()
   {
-    // TODO: implement me
-  } // public void test()
-} // public class RobotTemplate extends SimpleRobot
+    Scheduler.getInstance().run();
+  } // public void operatorControl()
+
+} // public class RobotTemplate extends IterativeRobot
