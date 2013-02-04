@@ -138,9 +138,9 @@ public class KiwiDrive implements MotorSafety, IUtility
     vB = limit(vB * throttle);
     vC = limit(vC * throttle);
 
-    m_AMotor.set(vA);
-    m_BMotor.set(vB);
-    m_CMotor.set(vC);
+    m_AMotor.set(-vA);
+    m_BMotor.set(-vB);
+    m_CMotor.set(-vC);
   } // private void drive(double vX, double vY)
   /**
    * Limit motor values to the -1.0 to +1.0 range.
