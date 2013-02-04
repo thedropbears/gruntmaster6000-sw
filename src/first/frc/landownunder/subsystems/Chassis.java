@@ -62,7 +62,7 @@ public class Chassis extends Subsystem
    */
   public void drive(double vX, double vY, double vR, double throttle)
   {
-    double vA, vB, vC = 0;
+    double vA, vB, vC;
 
     
     vA = vX;
@@ -72,9 +72,9 @@ public class Chassis extends Subsystem
     vR = limit(vR);
     throttle = limit(throttle);
     
-    vA = limit(vA * throttle);
-    vB = limit(vB * throttle);
-    vC = limit(vC * throttle);
+    vA = limit( (vR + vA) * throttle);
+    vB = limit( (vR + vB) * throttle);
+    vC = limit( (vR + vC) * throttle);
 
     aMotor.set(vA);
     bMotor.set(-vB);
