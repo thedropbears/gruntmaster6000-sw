@@ -135,11 +135,12 @@ public class GruntMaster6000 extends SimpleRobot
     
     double drvThrottle;
     double oprThrottle;
+    SmartDashboard.putNumber("Opr Throttle", 0.00);
 
     while (isOperatorControl() && isEnabled())
     {
       drvThrottle = ( (1+joyDrv.getRawAxis(3))/2 );
-      oprThrottle = ( (1+joyOpr.getRawAxis(3))/2 );
+      // oprThrottle = ( (1+joyOpr.getRawAxis(3))/2 );
       // use KiwiDrive class for driving
       SmartDashboard.putNumber("Drv X", joyDrv.getX());
       SmartDashboard.putNumber("Drv Y", joyDrv.getY());
@@ -147,7 +148,7 @@ public class GruntMaster6000 extends SimpleRobot
       
       SmartDashboard.putNumber("Opr X", joyOpr.getX());
       SmartDashboard.putNumber("Opr Y", joyOpr.getY());
-      SmartDashboard.putNumber("Opr Throttle", oprThrottle);
+      oprThrottle = SmartDashboard.getNumber("Opr Throttle",0.00);
       
       
       kd.drive(joyDrv.getX(), joyDrv.getY(), 0, drvThrottle );
