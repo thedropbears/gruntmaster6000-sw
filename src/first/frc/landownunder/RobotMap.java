@@ -69,6 +69,6 @@ public class RobotMap
   public static final DigitalInput firePinMin = new DigitalInput(8);
   
   //// Shooter Tachometers
-  public static final Tachometer tachoFront = new Tachometer( new DigitalInput(9) );
-  public static final Tachometer tachoBack = new Tachometer( new DigitalInput(10) );
+  public static final Tachometer tachoFront = new Tachometer( new DigitalInput(9), 6 );
+  public static final Tachometer tachoBack = new Tachometer( new DigitalInput(10), 6 );
 }
