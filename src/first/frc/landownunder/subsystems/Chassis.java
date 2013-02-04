@@ -77,9 +77,10 @@ public class Chassis extends Subsystem
     vC = limit(vC * throttle);
 
     aMotor.set(vA);
-    bMotor.set(vB);
-    cMotor.set(vC);
-  } // private void drive(double vX, double vY)
+    bMotor.set(-vB);
+    cMotor.set(-vC);
+  } // public void drive(double vX, double vY, double vR, double throttle)
+  
   /**
    * Limit motor values to the -1.0 to +1.0 range.
    */
