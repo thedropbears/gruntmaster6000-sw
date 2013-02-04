@@ -21,7 +21,7 @@ import first.frc.landownunder.commands.CommandBase;
  */
 public class GruntMaster6000 extends IterativeRobot
 {  
-  Command autonomousCommand = null;
+  Command autonomousCommand;
   
   /**
    * Robot initialization
