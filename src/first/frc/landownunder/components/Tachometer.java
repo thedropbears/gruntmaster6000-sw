@@ -11,9 +11,18 @@ import edu.wpi.first.wpilibj.PIDSource;
  */
 public class Tachometer extends Counter implements PIDSource
 {
+  private int divider;
+  
   public Tachometer(DigitalInput tacho)
   {
     super(tacho);
+    this.divider = 1;
+  }
+ 
+  public Tachometer(DigitalInput tacho, int divider)
+  {
+    super(tacho);
+    this.divider = divider;
   }
           
   /**
@@ -21,6 +30,6 @@ public class Tachometer extends Counter implements PIDSource
    */
   public double pidGet()
   {
-    return 60/getPeriod();
+    return 60/(divider * getPeriod());
   }
 }
