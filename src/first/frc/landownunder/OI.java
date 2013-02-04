@@ -80,7 +80,7 @@ public class OI
    */
   public double getJoyDrvThrottle()
   {
-    return ( (1+joyDrv.getRawAxis(3)) );
+    return ( (1+joyDrv.getRawAxis(3)) / 2 );
   }
   
   /**
@@ -107,6 +107,6 @@ public class OI
    */
   public double getJoyOprThrottle()
   {
-    return ( (1+joyOpr.getRawAxis(3)) );
+    return ( (1+joyOpr.getRawAxis(3)) / 2 );
   }
 }
