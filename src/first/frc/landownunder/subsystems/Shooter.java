@@ -23,11 +23,16 @@ import first.frc.landownunder.components.Tachometer;
 public class Shooter extends Subsystem
 {
   /**
-   * Front motor controller
+   * Front motor controller.
    */
   private SpeedController m_Front;
   private PIDController pid_Front;
   private Tachometer tacho_Front;
+  
+  /**
+   * How many RPM front wheel should spin at.
+   */
+  private double ShooterRPM;
   
   // pull out PID vars from preferences
   private double FKp;
@@ -70,10 +75,12 @@ public class Shooter extends Subsystem
     m_Front = RobotMap.shooterMotorFront;
     tacho_Front = RobotMap.tachoFront;
     
+    ShooterRPM = Preferences.getInstance().getDouble("ShooterRPM", 60.0);
+    
     // pull out PID vars from preferences
-    FKp = Preferences.getInstance().getDouble("ShooterTP", 0.001);
-    FKi = Preferences.getInstance().getDouble("ShooterTI", 0);
-    FKd = Preferences.getInstance().getDouble("ShooterTD", 0.01);
+    FKp = Preferences.getInstance().getDouble("ShooterTP", 10);
+    FKi = Preferences.getInstance().getDouble("ShooterTI", 0.1);
+    FKd = Preferences.getInstance().getDouble("ShooterTD", 50);
     Fkf = Preferences.getInstance().getDouble("ShooterTF", 1/1500);
     
     pid_Front = new PIDController(FKp, FKi, FKd, tacho_Front, m_Front);
@@ -81,6 +88,7 @@ public class Shooter extends Subsystem
     pid_Front.disable();
     pid_Front.setInputRange(0, 1500);
     pid_Front.setPercentTolerance(15);
+    pid_Front.setSetpoint(ShooterRPM);
     
     // pull out PID vars from preferences
     BKp = Preferences.getInstance().getDouble("ShooterBP", 0.001);
@@ -93,5 +101,6 @@ public class Shooter extends Subsystem
     pid_Back.disable();
     pid_Back.setInputRange(0, 1500);
     pid_Front.setPercentTolerance(15);
+    pid_Front.setSetpoint( ShooterRPM * (1.0 + backWheelDifference) );
   }
 }
