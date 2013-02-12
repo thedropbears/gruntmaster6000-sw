@@ -65,8 +65,8 @@ public class RobotMap
   public static final Ultrasonic sonarC = new Ultrasonic(1, 5, 1, 6);
   
   //// Firing Pin Limit Switches
-  public static final DigitalInput firePinMax = new DigitalInput(7);
-  public static final DigitalInput firePinMin = new DigitalInput(8);
+  public static final DigitalInput firePinMax = new DigitalInput(1);
+  public static final DigitalInput firePinMin = new DigitalInput(2);
   
   //// Shooter Tachometers
   public static final Tachometer tachoFront = new Tachometer( new DigitalInput(9), 6 );
