@@ -59,16 +59,18 @@ public class RobotMap
   
   // Sensors
   //// Positioning
-  public static final HiTechnicCompass compass = new HiTechnicCompass(1);
+  //public static final HiTechnicCompass compass = new HiTechnicCompass(1);
   public static final Ultrasonic sonarA = new Ultrasonic(1, 1, 1, 2);
   public static final Ultrasonic sonarB = new Ultrasonic(1, 3, 1, 4);
   public static final Ultrasonic sonarC = new Ultrasonic(1, 5, 1, 6);
   
   //// Firing Pin Limit Switches
-  public static final DigitalInput firePinMax = new DigitalInput(1);
-  public static final DigitalInput firePinMin = new DigitalInput(2);
+  public static final DigitalInput firePinMax = new DigitalInput(7);
+  public static final DigitalInput firePinMin = new DigitalInput(8);
   
   //// Shooter Tachometers
-  public static final Tachometer tachoFront = new Tachometer( new DigitalInput(9), 6 );
-  public static final Tachometer tachoBack = new Tachometer( new DigitalInput(10), 6 );
+  public static final DigitalInput tachoFrontPin = new DigitalInput(9);
+  public static final DigitalInput tachoBackPin = new DigitalInput(10);
+  public static final Tachometer tachoFront = new Tachometer( tachoFrontPin, 6 );
+  public static final Tachometer tachoBack = new Tachometer( tachoBackPin, 6 );
 }

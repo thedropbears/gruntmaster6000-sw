@@ -73,7 +73,10 @@ public class Shooter extends Subsystem
   public Shooter()
   {
     m_Front = RobotMap.shooterMotorFront;
+    m_Back  = RobotMap.shooterMotorBack;
+    
     tacho_Front = RobotMap.tachoFront;
+    tacho_Back = RobotMap.tachoBack;
     
     ShooterRPM = Preferences.getInstance().getDouble("ShooterRPM", 60.0);
     
@@ -100,7 +103,7 @@ public class Shooter extends Subsystem
     pid_Back.setOutputRange(0, 1);
     pid_Back.disable();
     pid_Back.setInputRange(0, 1500);
-    pid_Front.setPercentTolerance(15);
-    pid_Front.setSetpoint( ShooterRPM * (1.0 + backWheelDifference) );
+    pid_Back.setPercentTolerance(15);
+    pid_Back.setSetpoint( ShooterRPM * (1.0 + backWheelDifference) );
   }
 }

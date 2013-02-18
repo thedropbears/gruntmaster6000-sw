@@ -13,16 +13,16 @@ public class Tachometer extends Counter implements PIDSource
 {
   private int divider;
   
-  public Tachometer(DigitalInput tacho)
+  public Tachometer(DigitalInput tachoPin, int divider)
   {
-    super(tacho);
-    this.divider = 1;
-  }
- 
-  public Tachometer(DigitalInput tacho, int divider)
-  {
-    super(tacho);
+    super(tachoPin);
     this.divider = divider;
+  }
+  
+  public Tachometer(DigitalInput tachoPin)
+  {
+    super(tachoPin);
+    this.divider = 1;
   }
           
   /**
