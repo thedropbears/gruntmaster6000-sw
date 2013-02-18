@@ -70,9 +70,9 @@ public class KiwiDrive implements MotorSafety, IUtility
   protected final int m_invertedMotors[] = new int[3];
   protected double m_sensitivity;
   protected double m_maxOutput;
-  protected SpeedController m_AMotor;
-  protected SpeedController m_BMotor;
-  protected SpeedController m_CMotor;
+  protected Victor m_AMotor;
+  protected Victor m_BMotor;
+  protected Victor m_CMotor;
   protected boolean m_allocatedSpeedControllers;
   protected boolean m_isCANInitialized = true;
   protected static boolean kArcadeRatioCurve_Reported = false;
