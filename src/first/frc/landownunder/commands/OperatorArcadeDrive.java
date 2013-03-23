@@ -14,15 +14,17 @@ public class OperatorArcadeDrive extends CommandBase
     requires(firingPin);
   }
 
-  protected void initialize() { }
+  protected void initialize() { 
+  }
 
   protected void execute()
   {
     chassis.drive(oi.getJoyDrvX(), oi.getJoyDrvY(), 0, oi.getJoyDrvThrottle() );
     //RobotMap.noneTopServo.whenPressed(this){
            // firingPin.opentopservo();
-    //}
-    RobotMap.openTopButton.whenPressed(new HopperCommand());
+    //}   RobotMap.openTopButton.whenPressed(new HopperCommand());
+
+   
   }
   
   protected boolean isFinished()
