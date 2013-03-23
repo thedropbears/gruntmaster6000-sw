@@ -51,10 +51,10 @@ public class RobotMap
   
   public static final Button stopButton = new JoystickButton(joyOpr, 1);
   
-  public static final Button noneTopServo = new JoystickButton(joyOpr, 7);
-  public static final Button fullTopServo = new JoystickButton(joyOpr, 8);
-  public static final Button noneBottomServo = new JoystickButton(joyOpr, 11);
-  public static final Button fullBottomServo = new JoystickButton(joyOpr, 10);
+  public static final Button openTopButton = new JoystickButton(joyOpr, 7);
+  public static final Button closeTopButton = new JoystickButton(joyOpr, 8);
+  public static final Button openBottomButton = new JoystickButton(joyOpr, 11);
+  public static final Button closeBottomButton = new JoystickButton(joyOpr, 10);
   // Actuator definitions
   //// Drive Train Motors
   public static final Victor driveMotorA = new Victor(1, 1);

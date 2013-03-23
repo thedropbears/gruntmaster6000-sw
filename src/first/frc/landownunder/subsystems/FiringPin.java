@@ -35,7 +35,7 @@ public class FiringPin extends Subsystem
     motor.disable();
   }
   
-  public void opentopservo()
+  public void openTopServo()
   {
       topServo.set(0.1);
   }
