@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import first.frc.landownunder.RobotMap;
+import first.frc.landownunder.commands.HopperCommand;
 
 /**
  * @author Loughlan Mckendry <minimckendry@hotmail.com>
@@ -33,9 +34,10 @@ public class FiringPin extends Subsystem
     topServo = RobotMap.hopperServoTop;
     bottomServo = RobotMap.hopperServoBottom;
     motor.disable();
+    RobotMap.openTopButton.whenPressed(new HopperCommand());
   }
   
-  public void opentopservo()
+  public void openTopServo()
   {
       topServo.set(0.1);
   }
