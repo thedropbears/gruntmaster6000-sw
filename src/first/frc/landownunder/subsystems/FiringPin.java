@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import first.frc.landownunder.RobotMap;
 import first.frc.landownunder.commands.HopperCommand;
 
@@ -34,12 +35,15 @@ public class FiringPin extends Subsystem
     topServo = RobotMap.hopperServoTop;
     bottomServo = RobotMap.hopperServoBottom;
     motor.disable();
+    SmartDashboard.putNumber("initialising firing pin",42);
     RobotMap.openTopButton.whenPressed(new HopperCommand());
+    SmartDashboard.putNumber("initialised firing pin",9001);
+
   }
   
   public void openTopServo()
   {
-      topServo.set(0.1);
+      topServo.set(0.9);
   }
   public void fire()
   {
@@ -82,4 +86,5 @@ public class FiringPin extends Subsystem
 
   protected void initDefaultCommand() { }
 
+  
 }

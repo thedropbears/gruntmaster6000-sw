@@ -25,6 +25,7 @@ public abstract class CommandBase extends Command
   public static FiringPin firingPin = new FiringPin();
   public static Shooter shooter = new Shooter();
   
+  
   public static void init()
   {
     oi = new OI();

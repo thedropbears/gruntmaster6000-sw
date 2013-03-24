@@ -4,7 +4,8 @@
  */
 package first.frc.landownunder.commands;
 
-import static first.frc.landownunder.commands.CommandBase.firingPin;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  *
@@ -17,7 +18,11 @@ public class HopperCommand extends CommandBase {
     }
 
     protected void initialize() {
+        //SmartDashboard.putData("hello", "hello");
+        SmartDashboard.putNumber("start has been called on hoppercommand", 1);
         firingPin.openTopServo();
+        
+        
     }
 
     protected boolean isFinished() {
@@ -25,7 +30,7 @@ public class HopperCommand extends CommandBase {
     }
 
     protected void end() {
-
+        SmartDashboard.putNumber("finished loading hopper", 3);
     }
 
     protected void interrupted() {
