@@ -1,10 +1,11 @@
 package first.frc.landownunder;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.HiTechnicCompass;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import first.frc.landownunder.components.Tachometer;
 
@@ -43,9 +44,17 @@ public class RobotMap
   
   
   ////Button Definitions
-  public static final JoystickButton fireButton = new JoystickButton(joyOpr, 8);
-  public static final JoystickButton resetButton = new JoystickButton(joyOpr, 7);
+  public static final Button reetButton = new JoystickButton(joyDrv, 7);
+  public static final Button fireButton = new JoystickButton(joyOpr, 8);
+  public static final Button slowButton = new JoystickButton(joyOpr, 5);
+  public static final Button fastButton = new JoystickButton(joyOpr, 6);
   
+  public static final Button stopButton = new JoystickButton(joyOpr, 1);
+  
+  public static final Button noneTopServo = new JoystickButton(joyOpr, 7);
+  public static final Button fullTopServo = new JoystickButton(joyOpr, 8);
+  public static final Button noneBottomServo = new JoystickButton(joyOpr, 11);
+  public static final Button fullBottomServo = new JoystickButton(joyOpr, 10);
   // Actuator definitions
   //// Drive Train Motors
   public static final Victor driveMotorA = new Victor(1, 1);
@@ -55,7 +64,11 @@ public class RobotMap
   //// Shooter Motors
   public static final Victor firePinMotor  = new Victor(1, 4);
   public static final Victor shooterMotorFront = new Victor(1, 5);
-  public static final Victor shooterMotorBack = new Victor(1, 6);  
+  public static final Victor shooterMotorBack = new Victor(1, 6);
+  
+  //// Hopper Servos
+  public static final Servo hopperServoTop = new Servo(1, 7);
+  public static final Servo hopperServoBottom = new Servo(1, 8);
   
   // Sensors
   //// Positioning

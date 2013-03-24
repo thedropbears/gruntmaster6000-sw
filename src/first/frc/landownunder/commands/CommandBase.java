@@ -19,6 +19,8 @@ import first.frc.landownunder.subsystems.Shooter;
 public abstract class CommandBase extends Command
 {
   public static OI oi;
+  
+  // set up subsystems
   public static Chassis chassis = new Chassis();
   public static FiringPin firingPin = new FiringPin();
   public static Shooter shooter = new Shooter();
@@ -32,6 +34,7 @@ public abstract class CommandBase extends Command
     SmartDashboard.putData(chassis);
     SmartDashboard.putData(firingPin);
     SmartDashboard.putData(shooter);
+    
   }
   
   // default constructors per page 41 of cookbook

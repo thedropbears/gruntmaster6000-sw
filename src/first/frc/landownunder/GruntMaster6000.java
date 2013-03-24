@@ -9,6 +9,7 @@ package first.frc.landownunder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import first.frc.landownunder.commands.AutonomousCommandGroup;
 import first.frc.landownunder.commands.CommandBase;
 
@@ -28,8 +29,10 @@ public class GruntMaster6000 extends IterativeRobot
    */
   public void robotInit()
   {
+    // instantiate the command used for the autonomous period
     autonomousCommand = new AutonomousCommandGroup();
-    
+
+    // Initialize all subsystems
     CommandBase.init();
   }
   
@@ -54,12 +57,8 @@ public class GruntMaster6000 extends IterativeRobot
    */
   public void teleopInit()
   {
-    // Ensure autonomous command is cancelled
-    if(autonomousCommand != null)
-    {
-      autonomousCommand.cancel();
-    }
-  }
+    autonomousCommand.cancel();
+  } // public void teleopInit()
   
   /**
    * This function is called periodically during operator control.
@@ -69,4 +68,11 @@ public class GruntMaster6000 extends IterativeRobot
     Scheduler.getInstance().run();
   } // public void operatorControl()
 
-} // public class RobotTemplate extends IterativeRobot
+  /**
+   * This function is called periodically during test mode
+   */
+  public void testPeriodic()
+  {
+    LiveWindow.run();
+  } // public void testPeriodic()
+} // public class GruntMaster6000 extends IterativeRobot

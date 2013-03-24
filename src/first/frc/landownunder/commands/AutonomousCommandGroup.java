@@ -22,11 +22,14 @@ public class AutonomousCommandGroup extends CommandGroup
   
   public AutonomousCommandGroup()
   {
+    requires(CommandBase.chassis);
+    requires(CommandBase.shooter);
+    requires(CommandBase.firingPin);
     frisbeeCount = Preferences.getInstance().getInt("AUTONOMOUS_FRISBEE_COUNT", 3);
     waitTime     = Preferences.getInstance().getDouble("AUTONOMOUS_WAIT_TIME", 0.5);
     
     // Spin up shooter
-    addSequential(new ShooterSpinup());
+    addSequential(new ShooterSpinFast());
     
     for(int i=1; i <= frisbeeCount; i++)
     {
@@ -45,5 +48,5 @@ public class AutonomousCommandGroup extends CommandGroup
   public void execute() {}
   public boolean isFinished() {
     return isFinished;
-  }
-}
+  } // public boolean isFinished()
+} // public class AutonomousCommandGroup extends CommandGroup

@@ -7,6 +7,7 @@ package first.frc.landownunder.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import first.frc.landownunder.RobotMap;
 
@@ -19,7 +20,8 @@ public class FiringPin extends Subsystem
   private final Victor motor;
   private final DigitalInput max;
   private final DigitalInput min;
-  
+  private final Servo topServo;
+  private final Servo bottomServo;
   private final double motorSpeed;
 
   public FiringPin()
@@ -28,10 +30,15 @@ public class FiringPin extends Subsystem
     max = RobotMap.firePinMax;
     min = RobotMap.firePinMin;
     motorSpeed = Preferences.getInstance().getDouble("firePinSpeed", 0.1);
-    
+    topServo = RobotMap.hopperServoTop;
+    bottomServo = RobotMap.hopperServoBottom;
     motor.disable();
   }
   
+  public void opentopservo()
+  {
+      topServo.set(0.1);
+  }
   public void fire()
   {
     motor.set(motorSpeed);
