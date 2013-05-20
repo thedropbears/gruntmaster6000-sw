@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import first.frc.landownunder.OI;
+import first.frc.landownunder.subsystems.BottomServo;
 import first.frc.landownunder.subsystems.Chassis;
 import first.frc.landownunder.subsystems.FiringPin;
 import first.frc.landownunder.subsystems.Shooter;
+import first.frc.landownunder.subsystems.TopServo;
 
 /**
  *
@@ -24,7 +26,8 @@ public abstract class CommandBase extends Command
   public static Chassis chassis = new Chassis();
   public static FiringPin firingPin = new FiringPin();
   public static Shooter shooter = new Shooter();
-  
+  public static TopServo topServo = new TopServo();
+  public static BottomServo bottomServo = new BottomServo();
   
   public static void init()
   {

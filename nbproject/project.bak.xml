@@ -9,7 +9,7 @@
     <type>org.netbeans.modules.ant.freeform</type>
     <configuration>
         <general-data xmlns="http://www.netbeans.org/ns/freeform-project/1">
-            <name>Gruntmaster6000</name>
+            <name>gruntmaster6000-sw</name>
             <properties>
                 <property-file>${user.home}/.sunspotfrc.properties</property-file>
                 <property-file>build.properties</property-file>
@@ -89,8 +89,5 @@
                 <source-level>1.4</source-level>
             </compilation-unit>
         </java-data>
-        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
-            <word>holonomic</word>
-        </spellchecker-wordlist>
     </configuration>
 </project>

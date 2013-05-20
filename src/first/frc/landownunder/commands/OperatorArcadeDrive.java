@@ -11,7 +11,6 @@ public class OperatorArcadeDrive extends CommandBase
   public OperatorArcadeDrive()
   {
     requires(chassis);
-    requires(firingPin);
   }
 
   protected void initialize() { 
@@ -19,12 +18,8 @@ public class OperatorArcadeDrive extends CommandBase
 
   protected void execute()
   {
+    System.out.println("Drive " + oi.getJoyDrvX() + "," + oi.getJoyDrvY() + "," + oi.getJoyDrvThrottle());
     chassis.drive(oi.getJoyDrvX(), oi.getJoyDrvY(), 0, oi.getJoyDrvThrottle() );
-    //RobotMap.noneTopServo.whenPressed(this){
-           // firingPin.opentopservo();
-    //}   RobotMap.openTopButton.whenPressed(new HopperCommand());
-
-   
   }
   
   protected boolean isFinished()

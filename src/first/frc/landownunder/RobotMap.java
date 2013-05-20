@@ -3,11 +3,9 @@ package first.frc.landownunder;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import first.frc.landownunder.components.Tachometer;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -42,48 +40,33 @@ public class RobotMap
    */
   public static double JOY_OPR_DEAD_Y = (double) 0.05;
   
+  //servo angles
+  public static double OPEN_SERVO_ANGLE = (double) 30;
+  public static double CLOSE_SERVO_ANGLE = (double) 0;
+  public static double FIRE_PIN_SPEED = (double) -0.5;
   
   ////Button Definitions
-  public static final Button reetButton = new JoystickButton(joyDrv, 7);
-  public static final Button fireButton = new JoystickButton(joyOpr, 8);
-  public static final Button slowButton = new JoystickButton(joyOpr, 5);
-  public static final Button fastButton = new JoystickButton(joyOpr, 6);
-  
+  //public static final Button resetButton = new JoystickButton(joyDrv, 7);
+  public static final Button fireButton = new JoystickButton(joyOpr, 6);
+  public static final Button slowButton = new JoystickButton(joyOpr, 7);
+  public static final Button fastButton = new JoystickButton(joyOpr, 8);
   public static final Button stopButton = new JoystickButton(joyOpr, 1);
-  
-  public static final Button openTopButton = new JoystickButton(joyOpr, 7);
-  public static final Button closeTopButton = new JoystickButton(joyOpr, 8);
-  public static final Button openBottomButton = new JoystickButton(joyOpr, 11);
-  public static final Button closeBottomButton = new JoystickButton(joyOpr, 10);
+  public static final Button topButton = new JoystickButton(joyOpr, 4);
+  public static final Button bottomButton = new JoystickButton(joyOpr, 2);
+
   // Actuator definitions
-  //// Drive Train Motors
-  public static final Victor driveMotorA = new Victor(1, 1);
-  public static final Victor driveMotorB = new Victor(1, 2);
-  public static final Victor driveMotorC = new Victor(1, 3);
   
   //// Shooter Motors
-  public static final Victor firePinMotor  = new Victor(1, 4);
-  public static final Victor shooterMotorFront = new Victor(1, 5);
-  public static final Victor shooterMotorBack = new Victor(1, 6);
+  public static final Victor firePinMotor  = new Victor(5);
+  public static final Victor shooterMotorFront = new Victor(4);
+  public static final Victor shooterMotorBack = new Victor(6);
   
   //// Hopper Servos
-  public static final Servo hopperServoTop = new Servo(1, 7);
-  public static final Servo hopperServoBottom = new Servo(1, 8);
+  public static final Servo hopperServoTop = new Servo(8);
+  public static final Servo hopperServoBottom = new Servo(7);
   
   // Sensors
-  //// Positioning
-  //public static final HiTechnicCompass compass = new HiTechnicCompass(1);
-  public static final Ultrasonic sonarA = new Ultrasonic(1, 1, 1, 2);
-  public static final Ultrasonic sonarB = new Ultrasonic(1, 3, 1, 4);
-  public static final Ultrasonic sonarC = new Ultrasonic(1, 5, 1, 6);
-  
   //// Firing Pin Limit Switches
-  public static final DigitalInput firePinMax = new DigitalInput(7);
-  public static final DigitalInput firePinMin = new DigitalInput(8);
-  
-  //// Shooter Tachometers
-  public static final DigitalInput tachoFrontPin = new DigitalInput(9);
-  public static final DigitalInput tachoBackPin = new DigitalInput(10);
-  public static final Tachometer tachoFront = new Tachometer( tachoFrontPin, 6 );
-  public static final Tachometer tachoBack = new Tachometer( tachoBackPin, 6 );
+  public static final DigitalInput firePinMax = new DigitalInput(8);
+  public static final DigitalInput firePinMin = new DigitalInput(7);
 }
