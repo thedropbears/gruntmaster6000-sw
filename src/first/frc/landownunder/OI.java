@@ -6,6 +6,15 @@ package first.frc.landownunder;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
+import first.frc.landownunder.commands.CloseBottomServo;
+import first.frc.landownunder.commands.CloseTopServo;
+import first.frc.landownunder.commands.DrawBridgeOpen;
+import first.frc.landownunder.commands.OpenBottomServo;
+import first.frc.landownunder.commands.OpenTopServo;
+import first.frc.landownunder.commands.ShooterFire;
+import first.frc.landownunder.commands.ShooterSpinFast;
+import first.frc.landownunder.commands.ShooterSpinSlow;
+import first.frc.landownunder.commands.ShooterSpinStop;
 
 /**
  *
@@ -20,6 +29,15 @@ public class OI
   {
     joyDrv = RobotMap.joyDrv;
     joyOpr = RobotMap.joyOpr;
+    RobotMap.fastButton.whenPressed(new ShooterSpinFast());
+    RobotMap.slowButton.whenPressed(new ShooterSpinSlow());
+    RobotMap.fireButton.whenPressed(new ShooterFire());
+    RobotMap.stopButton.whenPressed(new ShooterSpinStop());
+    RobotMap.topButton.whenActive(new OpenTopServo());
+    RobotMap.topButton.whenInactive(new CloseTopServo());
+    RobotMap.bottomButton.whenActive(new OpenBottomServo());
+    RobotMap.bottomButton.whenInactive(new CloseBottomServo());
+    RobotMap.drawBridgeButton.whenPressed(new DrawBridgeOpen());
   }
   
   /**
