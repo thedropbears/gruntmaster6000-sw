@@ -1,16 +1,19 @@
 package first.frc.landownunder.commands;
 
-import first.frc.landownunder.RobotMap;
+import edu.wpi.first.wpilibj.Preferences;
 
 /**
  *
  * @author carneeki
  */
-public class OperatorArcadeDrive extends CommandBase
+public class AutonomousArcadeDriveForward extends CommandBase
 {
-  public OperatorArcadeDrive()
+  private final double waitTime;
+  
+  public AutonomousArcadeDriveForward()
   {
     requires(chassis);
+    waitTime     = Preferences.getInstance().getDouble("AUTONOMOUS_WAIT_TIME", 0.5);
   }
 
   protected void initialize() { 
@@ -18,8 +21,7 @@ public class OperatorArcadeDrive extends CommandBase
 
   protected void execute()
   {
-    System.out.println("Drive " + oi.getJoyDrvX() + "," + oi.getJoyDrvY() + "," + oi.getJoyDrvThrottle());
-    chassis.drive(oi.getJoyDrvX(), oi.getJoyDrvY(), 0, oi.getJoyDrvThrottle() );
+    chassis.drive(1, 0, 0, 1 );
   }
   
   protected boolean isFinished()

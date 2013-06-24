@@ -11,9 +11,9 @@ import first.frc.landownunder.subsystems.Shooter;
  *
  * @author carneeki
  */
-public class ShooterSpinFast extends Command
+public class ShooterSpinFast extends CommandBase
 {
-  Shooter shooter = new Shooter();
+    private boolean finnished;
   
   public ShooterSpinFast()
   {
@@ -21,14 +21,17 @@ public class ShooterSpinFast extends Command
     requires(shooter);
   } // public ShooterSpinup()
   
-  public void initialize() {}
+  public void initialize() {
+  finnished = false;
+  }
   public void execute()
   {
     shooter.fast();
+    finnished = true;
   }
   public boolean isFinished()
   {
-    return false;
+    return finnished;
   } // public boolean isFinished()
 
   protected void end() {}

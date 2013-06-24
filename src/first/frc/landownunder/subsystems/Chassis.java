@@ -6,6 +6,7 @@ package first.frc.landownunder.subsystems;
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import first.frc.landownunder.RobotMap;
 import first.frc.landownunder.commands.OperatorArcadeDrive;
@@ -23,10 +24,10 @@ import first.frc.landownunder.commands.OperatorArcadeDrive;
  */
 public class Chassis extends Subsystem
 {
-
-  private final SpeedController aMotor;
-  private final SpeedController bMotor;
-  private final SpeedController cMotor;
+  //// Drive Train Motors
+  public final Victor driveMotorA = new Victor(1);
+  public final Victor driveMotorB = new Victor(2);
+  public final Victor driveMotorC = new Victor(3);
 
   protected void initDefaultCommand()
   {
@@ -41,9 +42,6 @@ public class Chassis extends Subsystem
    */
   public Chassis()
   {
-    aMotor = RobotMap.driveMotorA;
-    bMotor = RobotMap.driveMotorB;
-    cMotor = RobotMap.driveMotorC;
   }
 
   /**
@@ -65,6 +63,7 @@ public class Chassis extends Subsystem
     
     double vA, vB, vC;
 
+    vY = -vY;
     
     vA = vX;
     vB = (-vX / 2) - (Math.sqrt(3) / 2 * vY);
@@ -77,9 +76,10 @@ public class Chassis extends Subsystem
     vB = limit( (vR + vB) * throttle);
     vC = limit( (vR + vC) * throttle);
 
-    aMotor.set(vA);
-    bMotor.set(-vB);
-    cMotor.set(-vC);
+    System.out.println("vA,vB,vC = " + vA + "," + vB + "," + vC);
+    driveMotorA.set(vA);
+    driveMotorB.set(vB);
+    driveMotorC.set(vC);
   } // public void drive(double vX, double vY, double vR, double throttle)
   
   /**

@@ -41,20 +41,22 @@ public class Shooter extends Subsystem
   
   public void stop()
   {
-    m_Front.disable();
-    m_Back.disable();
+    m_Front.set(0.0);
+    m_Back.set(0.0);
+    //m_Front.disable();
+    //m_Back.disable();
   }
   
   public void slow()
   {
-      m_Front.set(-0.05);
-      m_Back.set(-0.05);
+      m_Front.set(-0.1);
+      m_Back.set(-0.1);
   }
   
   public void fast()
   {
-      m_Front.set(-0.45);
-      m_Back.set(-0.45);
+      m_Front.set(-1);
+      m_Back.set(1);
   }
 
   protected void initDefaultCommand()
