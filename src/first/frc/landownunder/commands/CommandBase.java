@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import first.frc.landownunder.OI;
 import first.frc.landownunder.subsystems.BottomServo;
 import first.frc.landownunder.subsystems.Chassis;
+import first.frc.landownunder.subsystems.ChassisSpin;
 import first.frc.landownunder.subsystems.DrawBridgeServo;
 import first.frc.landownunder.subsystems.FiringPin;
 import first.frc.landownunder.subsystems.Shooter;
@@ -30,10 +31,13 @@ public abstract class CommandBase extends Command
   public static TopServo topServo = new TopServo();
   public static BottomServo bottomServo = new BottomServo();
   public static DrawBridgeServo drawBridgeServo = new DrawBridgeServo();
+  public static ChassisSpin chassisSpin = new ChassisSpin();
   
   public static void init()
   {
     oi = new OI();
+    
+    System.out.println("OI");
     
     SmartDashboard.putData("SchedulerData",Scheduler.getInstance());
     
